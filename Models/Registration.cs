@@ -18,6 +18,8 @@ namespace PrismAPI.Models
 
         public string EmailStatus { get; set; }
         public string OTPNo { get; set; }
+
+       
         public string Status { get; set; }
 
         public string CreatedDate { get; set; }
