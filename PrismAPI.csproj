@@ -412,6 +412,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
+    <Compile Include="Models\Achievement.cs" />
+    <Compile Include="Models\AdminDetail.cs" />
+    <Compile Include="Models\AdminRegistration.cs" />
     <Compile Include="Models\Applicant.cs" />
     <Compile Include="Models\ApplicationTracker.cs" />
     <Compile Include="Models\BranchCode.cs" />

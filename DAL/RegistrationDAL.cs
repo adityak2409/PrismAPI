@@ -178,6 +178,8 @@ namespace PrismAPI.DAL
         public LoginCo Login(string Email, string Password)
         {
             LoginCo user = new LoginCo();
+
+
             SqlConnection con = conn.OpenDbConnection();
             SqlCommand cmd = new SqlCommand("GetUserByEmailAndPassword", con);
             cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = Email;
