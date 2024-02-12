@@ -13,53 +13,53 @@ using PrismAPI.DAL;
 using PrismAPI.Models;
 
 
-namespace PrismAPI.UserSkillControllers
+namespace PrismAPI.UserEducationControllers
 {
-    public class UserSkillController : ApiController
+    public class UserEducationController : ApiController
     {
         // GET: LoginCode
         public Logger Log = null;
-        public UserSkillController()
+        public UserEducationController()
         {
             Log = Logger.GetLogger();
         }
 
-        UserSkillDAL userskillDAL = new UserSkillDAL();
+        UserEducationDAL usereducationDAL = new UserEducationDAL();
 
         [HttpGet]
-        [ActionName("GetAllUserSkill")]
-        public List<UserSkill> GetAllUserSkill()
+        [ActionName("GetAllUserEducation")]
+        public List<UserEducation> GetAllUserEducation()
         {
-            Log.writeMessage("UserSkillController GetAllUserSkill Start");
-            List<UserSkill> list = null;
+            Log.writeMessage("UserEducationController GetAllAcheivement Start");
+            List<UserEducation> list = null;
             try
             {
-                list = userskillDAL.GetAllUserSkill();
+                list = usereducationDAL.GetAllUserEducation();
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetAllUserSkill Error " + ex.Message);
+                Log.writeMessage("UserEducationController GetAllUserEducation Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetAllUserSkill End");
+            Log.writeMessage("UserEducationController GetAllUserEducation End");
             return list;
         }
 
         [HttpGet]
-        [ActionName("GetUserSkillById")]
-        public UserSkill GetUserSkillById(int UserSkillId)
+        [ActionName("GetUserEducationById")]
+        public UserEducation GetUserEducationById(int UserEducationId)
         {
-            Log.writeMessage("UserSkillController GetUserSkillById Start");
-            UserSkill userskill = null;
+            Log.writeMessage("UserEducationController GetUserEducationById Start");
+            UserEducation usereducation = null;
             try
             {
-                userskill = userskillDAL.GetUserSkillById(UserSkillId);
+                usereducation = usereducationDAL.GetUserEducationById(UserEducationId);
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetUserSkillById Error " + ex.Message);
+                Log.writeMessage("UserEducationController GetUserEducationById Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetUserSkillById End");
-            return userskill;
+            Log.writeMessage("UserEducationController GetUserEducationById End");
+            return usereducation;
         }
 
         /* [HttpGet]
@@ -81,8 +81,8 @@ namespace PrismAPI.UserSkillControllers
          }*/
 
         [HttpPost]
-        [ActionName("AddUserSkill")]
-        public IHttpActionResult AddUserSkill(UserSkill userskill)
+        [ActionName("AddUserEducation")]
+        public IHttpActionResult AddUserEducation(UserEducation usereducation)
         {
             var result = "";
             try
@@ -91,12 +91,12 @@ namespace PrismAPI.UserSkillControllers
                 {
                     return BadRequest(ModelState);
                 }
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
+                usereducation.CreatedBy = "Admin";
+                usereducation.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                usereducation.UpdatedBy = "Admin";
                 //firstModel.Status = "Success";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                result = userskillDAL.AddUserSkill(userskill);
+                usereducation.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                result = usereducationDAL.AddUserEducation(usereducation);
 
 
 
@@ -108,14 +108,14 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("UserEducationController AddUserEducation Error " + ex.Message);
             }
             return Ok(result);
         }
 
         [HttpPost]
-        [ActionName("UpdateUserSkill")]
-        public IHttpActionResult UpdateUserSkill(UserSkill userskill)
+        [ActionName("UpdateUserEducation")]
+        public IHttpActionResult UpdateUserEducation(UserEducation usereducation)
         {
             var result = "";
             try
@@ -125,12 +125,12 @@ namespace PrismAPI.UserSkillControllers
                     return BadRequest(ModelState);
                 }
 
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                usereducation.CreatedBy = "Admin";
+                usereducation.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                usereducation.UpdatedBy = "Admin";
+                usereducation.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
 
-                result = userskillDAL.UpdateUserSkill(userskill);
+                result = usereducationDAL.UpdateUserEducation(usereducation);
 
 
 
@@ -142,7 +142,7 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("UserEducationController AddUserEducation Error " + ex.Message);
             }
             return Ok(result);
         }
@@ -217,11 +217,11 @@ namespace PrismAPI.UserSkillControllers
 
         //// DELETE: api/Address/5
 
-        public IHttpActionResult DeleteUserSkill(int Id)
+        public IHttpActionResult DeleteUserEducation(int Id)
         {
             try
             {
-                var result = userskillDAL.DeleteUserSkill(Id);
+                var result = usereducationDAL.DeleteUserEducation(Id);
 
                 if (result == "Success")
                 {
@@ -234,7 +234,7 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController DeleteUserSkill Error " + ex.Message);
+                Log.writeMessage("UserEducationController DeleteUserEducation Error " + ex.Message);
             }
             return Ok("Failed");
         }

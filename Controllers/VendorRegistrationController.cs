@@ -13,76 +13,76 @@ using PrismAPI.DAL;
 using PrismAPI.Models;
 
 
-namespace PrismAPI.UserSkillControllers
+namespace PrismAPI.VendorRegistrationControllers
 {
-    public class UserSkillController : ApiController
+    public class VendorRegistrationController : ApiController
     {
-        // GET: LoginCode
+        // GET: VendorRegistration
         public Logger Log = null;
-        public UserSkillController()
+        public VendorRegistrationController()
         {
             Log = Logger.GetLogger();
         }
 
-        UserSkillDAL userskillDAL = new UserSkillDAL();
+        VendorRegistrationDAL vendorregistrationDAL = new VendorRegistrationDAL();
 
         [HttpGet]
-        [ActionName("GetAllUserSkill")]
-        public List<UserSkill> GetAllUserSkill()
+        [ActionName("GetAllVendorRegistration")]
+        public List<VendorRegistration> GetAllVendorRegistration()
         {
-            Log.writeMessage("UserSkillController GetAllUserSkill Start");
-            List<UserSkill> list = null;
+            Log.writeMessage("VendorRegistrationController GetAllVendorRegistration Start");
+            List<VendorRegistration> list = null;
             try
             {
-                list = userskillDAL.GetAllUserSkill();
+                list = vendorregistrationDAL.GetAllVendorRegistration();
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetAllUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorRegistrationController GetAllVendorRegistration Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetAllUserSkill End");
+            Log.writeMessage("VendorRegistrationController GetAllVendorRegistration End");
             return list;
         }
 
         [HttpGet]
-        [ActionName("GetUserSkillById")]
-        public UserSkill GetUserSkillById(int UserSkillId)
+        [ActionName("GetVendorRegistrationById")]
+        public VendorRegistration GetVendorRegistrationById(int VendorRegistrationId)
         {
-            Log.writeMessage("UserSkillController GetUserSkillById Start");
-            UserSkill userskill = null;
+            Log.writeMessage("VendorRegistrationController GetVendorRegistrationById Start");
+            VendorRegistration vendorregistration = null;
             try
             {
-                userskill = userskillDAL.GetUserSkillById(UserSkillId);
+                vendorregistration = vendorregistrationDAL.GetVendorRegistrationById(VendorRegistrationId);
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetUserSkillById Error " + ex.Message);
+                Log.writeMessage("VendorRegistrationController GetVendorRegistrationById Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetUserSkillById End");
-            return userskill;
+            Log.writeMessage("VendorRegistrationController GetVendorRegistrationById End");
+            return vendorregistration;
         }
 
         /* [HttpGet]
-         [ActionName("GetLoginCodeByEmail")]
-         public LoginCode GetLoginCodeByEmail(string Email)
+         [ActionName("GetVendorRegistrationByEmail")]
+         public VendorRegistration GetVendorRegistrationByEmail(string Email)
          {
-             Log.writeMessage("LoginCodeController GetLoginCodeByEmail Start");
-             LoginCode loginCode = null;
+             Log.writeMessage("VendorRegistrationController GetVendorRegistrationByEmail Start");
+             VendorRegistration vendorregistration = null;
              try
              {
-                 loginCode = loginCodeDAL.GetLoginCodeByEmail(Email);
+                 vendorregistration = vendorregistrationDAL.GetVendorRegistrationByEmail(Email);
              }
              catch (Exception ex)
              {
-                 Log.writeMessage("LoginCodeController GetLoginCodeByEmail Error " + ex.Message);
+                 Log.writeMessage("VendorRegistrationController GetVendorRegistrationByEmail Error " + ex.Message);
              }
-             Log.writeMessage("LoginCodeController GetLoginCodeByEmail End");
-             return loginCode;
+             Log.writeMessage("VendorRegistrationController GetVendorRegistrationByEmail End");
+             return vendorregistration;
          }*/
 
         [HttpPost]
-        [ActionName("AddUserSkill")]
-        public IHttpActionResult AddUserSkill(UserSkill userskill)
+        [ActionName("AddVendorRegistration")]
+        public IHttpActionResult AddVendorRegistration(VendorRegistration vendorregistration)
         {
             var result = "";
             try
@@ -91,12 +91,12 @@ namespace PrismAPI.UserSkillControllers
                 {
                     return BadRequest(ModelState);
                 }
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
+                vendorregistration.CreatedBy = "Admin";
+                vendorregistration.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                vendorregistration.UpdatedBy = "Admin";
                 //firstModel.Status = "Success";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                result = userskillDAL.AddUserSkill(userskill);
+                vendorregistration.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                result = vendorregistrationDAL.AddVendorRegistration(vendorregistration);
 
 
 
@@ -108,14 +108,14 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorRegistrationController AddVendorRegistration Error " + ex.Message);
             }
             return Ok(result);
         }
 
         [HttpPost]
-        [ActionName("UpdateUserSkill")]
-        public IHttpActionResult UpdateUserSkill(UserSkill userskill)
+        [ActionName("UpdateVendorRegistration")]
+        public IHttpActionResult UpdateVendorRegistration(VendorRegistration vendorregistration)
         {
             var result = "";
             try
@@ -125,12 +125,12 @@ namespace PrismAPI.UserSkillControllers
                     return BadRequest(ModelState);
                 }
 
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                vendorregistration.CreatedBy = "Admin";
+                vendorregistration.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                vendorregistration.UpdatedBy = "Admin";
+                vendorregistration.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
 
-                result = userskillDAL.UpdateUserSkill(userskill);
+                result = vendorregistrationDAL.UpdateVendorRegistration(vendorregistration);
 
 
 
@@ -142,45 +142,44 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorRegistrationController AddVendorRegistration Error " + ex.Message);
             }
             return Ok(result);
         }
 
+        [HttpGet]
+        [ActionName("Login")]
+        public Loginv Loginv(string Email, string Password)
+        {
+            Log.writeMessage("VendorRegistrationController GetVendorRegistrationById Start");
+            Loginv user = null;
+            try
+            {
+                user = vendorregistrationDAL.Loginv(Email, Password);
+            }
+            catch (Exception ex)
+            {
+                Log.writeMessage("VendorRegistrationController GetVendorRegistrationById Error " + ex.Message);
+            }
+            Log.writeMessage("VendorRegistrationController GetVendorRegistrationById End");
+            return user;
+        }
         /*
-                [HttpGet]
-                [ActionName("Login")]
-                public Loginc Loginc(string Email, string Password)
-                {
-                    Log.writeMessage("LoginCodeController GetLoginCodeById Start");
-                    Loginc user = null;
-                    try
-                    {
-                        user = loginCodeDAL.Loginc(Email, Password);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.writeMessage("LoginCodeController GetLoginCodeById Error " + ex.Message);
-                    }
-                    Log.writeMessage("LoginCodeController GetLoginCodeById End");
-                    return user;
-                }
-
                 [HttpGet]
                 [ActionName("OtpNo")]
                 public OtpNo OtpNo(string Mobile)
                 {
-                    Log.writeMessage("LoginCodeController GetLoginCodeById Start");
+                    Log.writeMessage("VendorRegistrationController GetVendorRegistrationById Start");
                     OtpNo OtpNo = null;
                     try
                     {
-                        OtpNo = loginCodeDAL.OtpNo(Mobile);
+                        OtpNo = vendorregistrationDAL.OtpNo(Mobile);
                     }
                     catch (Exception ex)
                     {
-                        Log.writeMessage("LoginCodeController GetLoginCodeById Error " + ex.Message);
+                        Log.writeMessage("VendorRegistrationController GetVendorRegistrationById Error " + ex.Message);
                     }
-                    Log.writeMessage("LoginCodeController GetLoginCodeById End");
+                    Log.writeMessage("VendorRegistrationController GetVendorRegistrationById End");
                     return OtpNo;
                 }*/
         // PUT: api/Address/5
@@ -217,11 +216,11 @@ namespace PrismAPI.UserSkillControllers
 
         //// DELETE: api/Address/5
 
-        public IHttpActionResult DeleteUserSkill(int Id)
+        public IHttpActionResult DeleteVendorRegistration(int Id)
         {
             try
             {
-                var result = userskillDAL.DeleteUserSkill(Id);
+                var result = vendorregistrationDAL.DeleteVendorRegistration(Id);
 
                 if (result == "Success")
                 {
@@ -234,7 +233,7 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController DeleteUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorRegistrationController DeleteVendorRegistration Error " + ex.Message);
             }
             return Ok("Failed");
         }
@@ -310,7 +309,7 @@ namespace PrismAPI.UserSkillControllers
 
 
         /* [HttpPost]
-         public async Task<IHttpActionResult> SaveLoginCodeImage(int Id)
+         public async Task<IHttpActionResult> SaveVendorRegistrationImage(int Id)
          {
              try
              {
@@ -327,17 +326,17 @@ namespace PrismAPI.UserSkillControllers
                      //get the folder that's in
                      string theDirectory = Path.GetDirectoryName(fullPath);
                      theDirectory = theDirectory.Substring(0, theDirectory.LastIndexOf('\\'));
-                     File.WriteAllBytes(theDirectory + "/Content/LoginCode" + "/" + Id + "_" + filename, buffer);
+                     File.WriteAllBytes(theDirectory + "/Content/VendorRegistration" + "/" + Id + "_" + filename, buffer);
                      //Do whatever you want with filename and its binary data.
 
                      // get existing rocrd
-                     var loginCode = loginCodeDAL.GetLoginCodeById(Id);
+                     var vendorregistration = vendorregistrationDAL.GetVendorRegistrationById(Id);
                      var filenamenew = Id + "_" + filename;
-                     if (loginCode.Photo.ToLower() != filenamenew.ToLower())
+                     if (vendorregistration.Photo.ToLower() != filenamenew.ToLower())
                      {
-                         File.Delete(theDirectory + "/Content/LoginCode" + "/" + loginCode.Photo);
-                         loginCode.Photo = Id + "_" + filename;
-                         var result = loginCodeDAL.UpdateLoginCode(loginCode);
+                         File.Delete(theDirectory + "/Content/VendorRegistration" + "/" + vendorregistration.Photo);
+                         vendorregistration.Photo = Id + "_" + filename;
+                         var result = vendorregistrationDAL.UpdateVendorRegistration(vendorregistration);
 
                      }
                  }

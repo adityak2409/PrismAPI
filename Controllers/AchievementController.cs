@@ -13,53 +13,53 @@ using PrismAPI.DAL;
 using PrismAPI.Models;
 
 
-namespace PrismAPI.UserSkillControllers
+namespace PrismAPI.AchievementControllers
 {
-    public class UserSkillController : ApiController
+    public class AchievementController : ApiController
     {
         // GET: LoginCode
         public Logger Log = null;
-        public UserSkillController()
+        public AchievementController()
         {
             Log = Logger.GetLogger();
         }
 
-        UserSkillDAL userskillDAL = new UserSkillDAL();
+        AchievementDAL achievementDAL = new AchievementDAL();
 
         [HttpGet]
-        [ActionName("GetAllUserSkill")]
-        public List<UserSkill> GetAllUserSkill()
+        [ActionName("GetAllAchievement")]
+        public List<Achievement> GetAllAchievement()
         {
-            Log.writeMessage("UserSkillController GetAllUserSkill Start");
-            List<UserSkill> list = null;
+            Log.writeMessage("AchievementController GetAllAchievement Start");
+            List<Achievement> list = null;
             try
             {
-                list = userskillDAL.GetAllUserSkill();
+                list = achievementDAL.GetAllAchievement();
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetAllUserSkill Error " + ex.Message);
+                Log.writeMessage("AchievementController GetAllAchievement Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetAllUserSkill End");
+            Log.writeMessage("AchievementController GetAllAchievement End");
             return list;
         }
 
         [HttpGet]
-        [ActionName("GetUserSkillById")]
-        public UserSkill GetUserSkillById(int UserSkillId)
+        [ActionName("GetAchievementById")]
+        public Achievement GetAchievementById(int AchievementId)
         {
-            Log.writeMessage("UserSkillController GetUserSkillById Start");
-            UserSkill userskill = null;
+            Log.writeMessage("AchievementController GetAchievementById Start");
+            Achievement achievement = null;
             try
             {
-                userskill = userskillDAL.GetUserSkillById(UserSkillId);
+                achievement = achievementDAL.GetAchievementById(AchievementId);
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetUserSkillById Error " + ex.Message);
+                Log.writeMessage("AchievementController GetAchievementById Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetUserSkillById End");
-            return userskill;
+            Log.writeMessage("AchievementController GetAchievementById End");
+            return achievement;
         }
 
         /* [HttpGet]
@@ -81,8 +81,8 @@ namespace PrismAPI.UserSkillControllers
          }*/
 
         [HttpPost]
-        [ActionName("AddUserSkill")]
-        public IHttpActionResult AddUserSkill(UserSkill userskill)
+        [ActionName("AddAchievement")]
+        public IHttpActionResult AddAchievement(Achievement achievement)
         {
             var result = "";
             try
@@ -91,12 +91,12 @@ namespace PrismAPI.UserSkillControllers
                 {
                     return BadRequest(ModelState);
                 }
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
+                achievement.CreatedBy = "Admin";
+                achievement.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                achievement.UpdatedBy = "Admin";
                 //firstModel.Status = "Success";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                result = userskillDAL.AddUserSkill(userskill);
+                achievement.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                result = achievementDAL.AddAchievement(achievement);
 
 
 
@@ -108,14 +108,14 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("AchievementController AddAchievement Error " + ex.Message);
             }
             return Ok(result);
         }
 
         [HttpPost]
-        [ActionName("UpdateUserSkill")]
-        public IHttpActionResult UpdateUserSkill(UserSkill userskill)
+        [ActionName("UpdateAchievement")]
+        public IHttpActionResult UpdateAchievement(Achievement achievement)
         {
             var result = "";
             try
@@ -125,12 +125,12 @@ namespace PrismAPI.UserSkillControllers
                     return BadRequest(ModelState);
                 }
 
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                achievement.CreatedBy = "Admin";
+                achievement.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                achievement.UpdatedBy = "Admin";
+                achievement.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
 
-                result = userskillDAL.UpdateUserSkill(userskill);
+                result = achievementDAL.UpdateAchievement(achievement);
 
 
 
@@ -142,7 +142,7 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("AchievementController AddAchievement Error " + ex.Message);
             }
             return Ok(result);
         }
@@ -217,11 +217,11 @@ namespace PrismAPI.UserSkillControllers
 
         //// DELETE: api/Address/5
 
-        public IHttpActionResult DeleteUserSkill(int Id)
+        public IHttpActionResult DeleteAchievement(int Id)
         {
             try
             {
-                var result = userskillDAL.DeleteUserSkill(Id);
+                var result = achievementDAL.DeleteAchievement(Id);
 
                 if (result == "Success")
                 {
@@ -234,7 +234,7 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController DeleteUserSkill Error " + ex.Message);
+                Log.writeMessage("AchievementController DeleteAchievementModel Error " + ex.Message);
             }
             return Ok("Failed");
         }

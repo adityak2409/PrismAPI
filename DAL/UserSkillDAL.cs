@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Http;
 using PrismAPI.Models;
+using PrismAPI.DAL;
+using System.Data.Common;
 
 namespace PrismAPI.DAL
 {
@@ -17,7 +21,8 @@ namespace PrismAPI.DAL
 
         public List<UserSkill> GetAllUserSkill()
         {
-            List<UserSkill> UserSkillList = new List<UserSkill>();
+
+            List<UserSkill> userskillList = new List<UserSkill>();
             SqlConnection con = conn.OpenDbConnection();
             SqlCommand cmd = new SqlCommand("GetAllUserSkill", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -25,74 +30,103 @@ namespace PrismAPI.DAL
 
             while (dr.Read())
             {
-                UserSkill userSkill = new UserSkill();
+                UserSkill userskill = new UserSkill();
+                userskill.Skills = new Skills();
+                userskill.UserSkillId = Convert.ToInt32(dr["UserSkillId"]);
+                userskill.Skills.SkillsId = Convert.ToInt32(dr["SkillsId"]);
+                userskill.Skills.Title = Convert.ToString(dr["Title1"]);
+                userskill.RegistrationId = Convert.ToInt32(dr["RegistrationId"]);
+                userskill.Certificate = Convert.ToString(dr["Certificate"]);
+                userskill.Status = Convert.ToString(dr["Status"]);
+                userskill.CreatedBy = Convert.ToString(dr["CreatedBy"]);
+                userskill.CreatedDate = Convert.ToString(dr["CreatedDate"]);
+                userskill.UpdatedBy = Convert.ToString(dr["UpdatedBy"]);
+                userskill.UpdatedDate = Convert.ToString(dr["UpdatedDate"]);
 
-                userSkill.UserSkillId = Convert.ToInt32(dr["UserSkillId"]);
-                userSkill.CompanyUserId = Convert.ToInt32(dr["CompanyUserId"]);
-                userSkill.SkillId = Convert.ToInt32(dr["SkillId"]);
-                userSkill.Certificate = Convert.ToString(dr["Certificate"]);
-              
-                userSkill.Status = Convert.ToString(dr["Status"]);
-
-                userSkill.CreatedBy = Convert.ToString(dr["CreatedBy"]);
-                userSkill.CreatedDate = Convert.ToString(dr["CreatedDate"]);
-                userSkill.UpdatedBy = Convert.ToString(dr["UpdatedBy"]);
-                userSkill.UpdatedDate = Convert.ToString(dr["UpdatedDate"]);
-
-                UserSkillList.Add(userSkill);
+                userskillList.Add(userskill);
             }
             con.Close();
-            return UserSkillList;
+            return userskillList;
         }
 
 
-        public UserSkill GetUserSkillById(int Id)
+        /*public UserSkill GetUserSkillByEmail(string Email)
         {
-            UserSkill userSkill = new UserSkill();
+            UserSkill loginCode = new UserSkill();
 
             SqlConnection con = conn.OpenDbConnection();
-            SqlCommand cmd = new SqlCommand("GetUserSkillById", con);
-            cmd.Parameters.Add("Id", SqlDbType.Int).Value = Id;
+            SqlCommand cmd = new SqlCommand("GetUserSkillByEmail", con);
+            cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = Email;
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
+                loginCode.Id = Convert.ToInt32(dr["Id"]);
 
-                userSkill.UserSkillId = Convert.ToInt32(dr["UserSkillId"]);
-                userSkill.CompanyUserId = Convert.ToInt32(dr["CompanyUserId"]);
-                userSkill.SkillId = Convert.ToInt32(dr["SkillId"]);
-                userSkill.Certificate = Convert.ToString(dr["Certificate"]);
+                loginCode.Name = Convert.ToString(dr["Name"]);
+                loginCode.Email = Convert.ToString(dr["Email"]);
+                loginCode.Mobile = Convert.ToString(dr["Mobile"]);
+                loginCode.Password = Convert.ToString(dr["Password"]);
+                loginCode.Address = Convert.ToString(dr["Address"]);
 
-                userSkill.Status = Convert.ToString(dr["Status"]);
+                loginCode.BirthDate = Convert.ToString(dr["BirthDate"]);
 
-                userSkill.CreatedBy = Convert.ToString(dr["CreatedBy"]);
-                userSkill.CreatedDate = Convert.ToString(dr["CreatedDate"]);
-                userSkill.UpdatedBy = Convert.ToString(dr["UpdatedBy"]);
-                userSkill.UpdatedDate = Convert.ToString(dr["UpdatedDate"]);
+                loginCode.Photo = Convert.ToString(dr["Photo"]);
+                loginCode.EmailStatus = Convert.ToString(dr["EmailStatus"]);
+
+                loginCode.CreatedBy = Convert.ToString(dr["CreatedBy"]);
+                loginCode.CreatedDate = Convert.ToString(dr["CreatedDate"]);
+                loginCode.UpdatedBy = Convert.ToString(dr["UpdatedBy"]);
+                loginCode.UpdatedDate = Convert.ToString(dr["UpdatedDate"]);
+            }
+            con.Close();
+            return loginCode;
+        }
+
+*/
+
+        public UserSkill GetUserSkillById(int UserSkillId)
+        {
+            UserSkill userskill = new UserSkill();
+
+            SqlConnection con = conn.OpenDbConnection();
+            SqlCommand cmd = new SqlCommand("GetUserSkillById", con);
+            cmd.Parameters.Add("UserSkillId", SqlDbType.Int).Value = UserSkillId;
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                userskill.Skills = new Skills();
+                userskill.UserSkillId = Convert.ToInt32(dr["UserSkillId"]);
+                userskill.Skills.SkillsId = Convert.ToInt32(dr["SkillsId"]);
+                userskill.Skills.Title = Convert.ToString(dr["Title1"]);
+                userskill.RegistrationId = Convert.ToInt32(dr["RegistrationId"]);
+                userskill.Certificate = Convert.ToString(dr["Certificate"]);
+                userskill.Status = Convert.ToString(dr["Status"]);
+                userskill.CreatedBy = Convert.ToString(dr["CreatedBy"]);
+                userskill.CreatedDate = Convert.ToString(dr["CreatedDate"]);
+                userskill.UpdatedBy = Convert.ToString(dr["UpdatedBy"]);
+                userskill.UpdatedDate = Convert.ToString(dr["UpdatedDate"]);
 
             }
             con.Close();
-            return userSkill;
+            return userskill;
         }
 
 
-        public string AddUserSkill(UserSkill userSkill)
+        public string AddUserSkill(UserSkill userskill)
         {
             SqlConnection con = conn.OpenDbConnection();
-            SqlCommand cmd = new SqlCommand("AdduserSkill", con);
-            //cmd.Parameters.Add("UserSkillId", SqlDbType.Int).Value = userSkill.UserSkillId;
-            cmd.Parameters.Add("CompanyUserId", SqlDbType.Int).Value = userSkill.CompanyUserId;
-            cmd.Parameters.Add("SkillId", SqlDbType.Int).Value = userSkill.SkillId;
-            cmd.Parameters.Add("Certificate", SqlDbType.NVarChar).Value = userSkill.Certificate;
-           
-            cmd.Parameters.Add("Status", SqlDbType.NVarChar).Value = userSkill.Status;
-
-
-
-            cmd.Parameters.Add("CreatedBy", SqlDbType.NVarChar).Value = userSkill.CreatedBy;
-            cmd.Parameters.Add("CreatedDate", SqlDbType.NVarChar).Value = userSkill.CreatedDate;
-            cmd.Parameters.Add("UpdatedBy", SqlDbType.NVarChar).Value = userSkill.UpdatedBy;
-            cmd.Parameters.Add("UpdatedDate", SqlDbType.NVarChar).Value = userSkill.UpdatedDate;
+            SqlCommand cmd = new SqlCommand("AddUserSkill", con);
+            //cmd.Parameters.Add("UserSkillId", SqlDbType.Int).Value = userskill.UserSkillId;
+            cmd.Parameters.Add("SkillsId", SqlDbType.Int).Value = userskill.Skills.SkillsId;
+            cmd.Parameters.Add("RegistrationId", SqlDbType.Int).Value = userskill.RegistrationId;
+            cmd.Parameters.Add("Certificate", SqlDbType.NVarChar).Value = userskill.Certificate;
+            cmd.Parameters.Add("Status", SqlDbType.NVarChar).Value = userskill.Status;
+            cmd.Parameters.Add("CreatedBy", SqlDbType.NVarChar).Value = userskill.CreatedBy;
+            cmd.Parameters.Add("CreatedDate", SqlDbType.NVarChar).Value = userskill.CreatedDate;
+            cmd.Parameters.Add("UpdatedBy", SqlDbType.NVarChar).Value = userskill.UpdatedBy;
+            cmd.Parameters.Add("UpdatedDate", SqlDbType.NVarChar).Value = userskill.UpdatedDate;
 
 
             Random r = new Random();
@@ -103,50 +137,80 @@ namespace PrismAPI.DAL
             cmd.CommandType = CommandType.StoredProcedure;
             object result = cmd.ExecuteScalar();
 
-            var UserSkillId = result.ToString();
+            var Id = result.ToString();
             con.Close();
             if (result.ToString() == "0")
             {
                 return "Failed";
             }
-            return UserSkillId.ToString();
+            return Id.ToString();
 
         }
 
         [HttpPost]
-        public string UpdateUserSkill(UserSkill userSkill)
+        public string UpdateUserSkill(UserSkill userskill)
         {
             SqlConnection con = conn.OpenDbConnection();
-            SqlCommand cmd = new SqlCommand("UpdateCollegeCode", con);
-            cmd.Parameters.Add("UserSkillId", SqlDbType.Int).Value = userSkill.UserSkillId;
-            cmd.Parameters.Add("CompanyUserId", SqlDbType.Int).Value = userSkill.CompanyUserId;
-            cmd.Parameters.Add("SkillId", SqlDbType.Int).Value = userSkill.SkillId;
-            cmd.Parameters.Add("Certificate", SqlDbType.NVarChar).Value = userSkill.Certificate;
+            SqlCommand cmd = new SqlCommand("UpdateUserSkill", con);
+            cmd.Parameters.Add("UserSkillId", SqlDbType.Int).Value = userskill.UserSkillId;
+            cmd.Parameters.Add("SkillsId", SqlDbType.Int).Value = userskill.Skills.SkillsId;
+            cmd.Parameters.Add("RegistrationId", SqlDbType.Int).Value = userskill.RegistrationId;
+            cmd.Parameters.Add("Certificate", SqlDbType.NVarChar).Value = userskill.Certificate;
+            cmd.Parameters.Add("Status", SqlDbType.NVarChar).Value = userskill.Status;
+            cmd.Parameters.Add("CreatedBy", SqlDbType.NVarChar).Value = userskill.CreatedBy;
+            cmd.Parameters.Add("CreatedDate", SqlDbType.NVarChar).Value = userskill.CreatedDate;
+            cmd.Parameters.Add("UpdatedBy", SqlDbType.NVarChar).Value = userskill.UpdatedBy;
+            cmd.Parameters.Add("UpdatedDate", SqlDbType.NVarChar).Value = userskill.UpdatedDate;
 
-            cmd.Parameters.Add("Status", SqlDbType.NVarChar).Value = userSkill.Status;
-
-
-
-            cmd.Parameters.Add("CreatedBy", SqlDbType.NVarChar).Value = userSkill.CreatedBy;
-            cmd.Parameters.Add("CreatedDate", SqlDbType.NVarChar).Value = userSkill.CreatedDate;
-            cmd.Parameters.Add("UpdatedBy", SqlDbType.NVarChar).Value = userSkill.UpdatedBy;
-            cmd.Parameters.Add("UpdatedDate", SqlDbType.NVarChar).Value = userSkill.UpdatedDate;
 
 
             cmd.CommandType = CommandType.StoredProcedure;
             object result = cmd.ExecuteScalar();
 
-            var UserSkillId = result.ToString();
+            var Id = result.ToString();
             con.Close();
             if (result.ToString() == "0")
             {
                 return "Failed";
             }
-            return userSkill.UserSkillId.ToString();
+            return userskill.UserSkillId.ToString();
 
         }
 
+        /*public Loginc Loginc(string Email, string Password)
+        {
+            Loginc user = new Loginc();
+            SqlConnection con = conn.OpenDbConnection();
+            SqlCommand cmd = new SqlCommand("GetUserEmailAndPassword", con);
+            cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = Email;
+            cmd.Parameters.Add("Password", SqlDbType.NVarChar).Value = Password;
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                user.Id = Convert.ToInt32(dr["Id"]);
+                //user.Role = Convert.ToString(dr["Role"]);
+            }
+            return user;
+        }
 
+
+        public OtpNo OtpNo(string Mobile)
+        {
+            OtpNo OtpNo = new OtpNo();
+            SqlConnection con = conn.OpenDbConnection();
+            SqlCommand cmd = new SqlCommand("GetUserOtp", con);
+            cmd.Parameters.Add("Mobile", SqlDbType.NVarChar).Value = Mobile;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                OtpNo.Id = Convert.ToInt32(dr["Id"]);
+                //user.Role = Convert.ToString(dr["Role"]);
+            }
+            return OtpNo;
+        }*/
         //public string UpdateFirstModel(FirstModel firstModel)
         //{
         //    SqlConnection con = conn.OpenDbConnection();
@@ -180,7 +244,7 @@ namespace PrismAPI.DAL
         public string DeleteUserSkill(int UserSkillId)
         {
             SqlConnection con = conn.OpenDbConnection();
-            SqlCommand cmd = new SqlCommand("DeleteCollegeCode", con);
+            SqlCommand cmd = new SqlCommand("DeleteUserSkill", con);
             cmd.Parameters.Add("UserSkillId", SqlDbType.Int).Value = UserSkillId;
             cmd.CommandType = CommandType.StoredProcedure;
             object result = cmd.ExecuteScalar();
@@ -188,9 +252,9 @@ namespace PrismAPI.DAL
             con.Close();
             if (result.ToString() == "0")
             {
-                return "failed";
+                return "Failed";
             }
-            return "success";
+            return "Success";
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Web;
 
 namespace PrismAPI.Models
 {
-    public class UserDetail
+    public class VendorDetail
     {
-        public int UserDetailId { get; set; }
+        public int VendorDetailId { get; set; }
+
         public int RegistrationId { get; set; }
-        public int EndUserPlanId { get; set; }
         public string ProfileTagLine { get; set; }
         public string Photo { get; set; }
         public string BirthDate { get; set; }
@@ -25,17 +25,17 @@ namespace PrismAPI.Models
         public string UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
     }
-    /*public class Loginc
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public int Id { get; set; }
-        public string Role { get; set; }
-    }
-    public class OtpNo
-    {
-        public string Mobile { get; set; }
-        public int Id { get; set; }
+    /*   public class Loginc
+       {
+           public string Email { get; set; }
+           public string Password { get; set; }
+           public int Id { get; set; }
+           public string Role { get; set; }
+       }
+       public class OtpNo
+       {
+           public string Mobile { get; set; }
+           public int Id { get; set; }
 
-    }*/
+       }*/
 }

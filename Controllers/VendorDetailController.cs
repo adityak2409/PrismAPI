@@ -13,53 +13,54 @@ using PrismAPI.DAL;
 using PrismAPI.Models;
 
 
-namespace PrismAPI.UserSkillControllers
+namespace PrismAPI.VendorDetailControllers
 {
-    public class UserSkillController : ApiController
+    public class VendorDetailController : ApiController
     {
         // GET: LoginCode
+
         public Logger Log = null;
-        public UserSkillController()
+        public VendorDetailController()
         {
             Log = Logger.GetLogger();
         }
 
-        UserSkillDAL userskillDAL = new UserSkillDAL();
+        VendorDetailDAL vendordetailDAL = new VendorDetailDAL();
 
         [HttpGet]
-        [ActionName("GetAllUserSkill")]
-        public List<UserSkill> GetAllUserSkill()
+        [ActionName("GetAllVendorDetail")]
+        public List<VendorDetail> GetAllVendorDetail()
         {
-            Log.writeMessage("UserSkillController GetAllUserSkill Start");
-            List<UserSkill> list = null;
+            Log.writeMessage("VendorDetailController GetAllVendorDetail Start");
+            List<VendorDetail> list = null;
             try
             {
-                list = userskillDAL.GetAllUserSkill();
+                list = vendordetailDAL.GetAllVendorDetail();
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetAllUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorDetailController GetAllVendorDetail Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetAllUserSkill End");
+            Log.writeMessage("VendorDetailController GetAllVendorDetail End");
             return list;
         }
 
         [HttpGet]
-        [ActionName("GetUserSkillById")]
-        public UserSkill GetUserSkillById(int UserSkillId)
+        [ActionName("GetVendorDetailById")]
+        public VendorDetail GetVendorDetailById(int VendorDetailId)
         {
-            Log.writeMessage("UserSkillController GetUserSkillById Start");
-            UserSkill userskill = null;
+            Log.writeMessage("VendorDetailController GetVendorDetailById Start");
+            VendorDetail vendordetail = null;
             try
             {
-                userskill = userskillDAL.GetUserSkillById(UserSkillId);
+                vendordetail = vendordetailDAL.GetVendorDetailById(VendorDetailId);
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController GetUserSkillById Error " + ex.Message);
+                Log.writeMessage("VendorDetailController GeVendorDetailById Error " + ex.Message);
             }
-            Log.writeMessage("UserSkillController GetUserSkillById End");
-            return userskill;
+            Log.writeMessage("VendorDetailController GetVendorDetailById End");
+            return vendordetail;
         }
 
         /* [HttpGet]
@@ -81,8 +82,8 @@ namespace PrismAPI.UserSkillControllers
          }*/
 
         [HttpPost]
-        [ActionName("AddUserSkill")]
-        public IHttpActionResult AddUserSkill(UserSkill userskill)
+        [ActionName("AddVendorDetail")]
+        public IHttpActionResult AddVendorDetail(VendorDetail vendordetail)
         {
             var result = "";
             try
@@ -91,12 +92,12 @@ namespace PrismAPI.UserSkillControllers
                 {
                     return BadRequest(ModelState);
                 }
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
+                vendordetail.CreatedBy = "Admin";
+                vendordetail.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                vendordetail.UpdatedBy = "Admin";
                 //firstModel.Status = "Success";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                result = userskillDAL.AddUserSkill(userskill);
+                vendordetail.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                result = vendordetailDAL.AddVendorDetail(vendordetail);
 
 
 
@@ -108,14 +109,14 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorDetailController AddVendorDetail Error " + ex.Message);
             }
             return Ok(result);
         }
 
         [HttpPost]
-        [ActionName("UpdateUserSkill")]
-        public IHttpActionResult UpdateUserSkill(UserSkill userskill)
+        [ActionName("UpdateVendorDetail")]
+        public IHttpActionResult UpdateVendorDetail(VendorDetail vendordetail)
         {
             var result = "";
             try
@@ -125,12 +126,12 @@ namespace PrismAPI.UserSkillControllers
                     return BadRequest(ModelState);
                 }
 
-                userskill.CreatedBy = "Admin";
-                userskill.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
-                userskill.UpdatedBy = "Admin";
-                userskill.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                vendordetail.CreatedBy = "Admin";
+                vendordetail.CreatedDate = DateTime.Now.ToString("MM/dd/yyyy");
+                vendordetail.UpdatedBy = "Admin";
+                vendordetail.UpdatedDate = DateTime.Now.ToString("MM/dd/yyyy");
 
-                result = userskillDAL.UpdateUserSkill(userskill);
+                result = vendordetailDAL.UpdateVendorDetail(vendordetail);
 
 
 
@@ -142,7 +143,7 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController AddUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorDetailController AddVendorDetail Error " + ex.Message);
             }
             return Ok(result);
         }
@@ -217,11 +218,11 @@ namespace PrismAPI.UserSkillControllers
 
         //// DELETE: api/Address/5
 
-        public IHttpActionResult DeleteUserSkill(int Id)
+        public IHttpActionResult DeleteVendorDetail(int Id)
         {
             try
             {
-                var result = userskillDAL.DeleteUserSkill(Id);
+                var result = vendordetailDAL.DeleteVendorDetail(Id);
 
                 if (result == "Success")
                 {
@@ -234,7 +235,7 @@ namespace PrismAPI.UserSkillControllers
             }
             catch (Exception ex)
             {
-                Log.writeMessage("UserSkillController DeleteUserSkill Error " + ex.Message);
+                Log.writeMessage("VendorDetailController DeleteVendorDetail Error " + ex.Message);
             }
             return Ok("Failed");
         }
@@ -309,44 +310,45 @@ namespace PrismAPI.UserSkillControllers
         //}
 
 
-        /* [HttpPost]
-         public async Task<IHttpActionResult> SaveLoginCodeImage(int Id)
-         {
-             try
-             {
-                 if (!Request.Content.IsMimeMultipartContent())
-                     throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+        [HttpPost]
+        public async Task<IHttpActionResult> SaveVendorDetailImage(int VendorDetailId)
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
 
-                 var provider = new MultipartMemoryStreamProvider();
-                 await Request.Content.ReadAsMultipartAsync(provider);
-                 foreach (var file in provider.Contents)
-                 {
-                     var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
-                     var buffer = await file.ReadAsByteArrayAsync();
-                     string fullPath = (new System.Uri(Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath;
-                     //get the folder that's in
-                     string theDirectory = Path.GetDirectoryName(fullPath);
-                     theDirectory = theDirectory.Substring(0, theDirectory.LastIndexOf('\\'));
-                     File.WriteAllBytes(theDirectory + "/Content/LoginCode" + "/" + Id + "_" + filename, buffer);
-                     //Do whatever you want with filename and its binary data.
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+                foreach (var file in provider.Contents)
+                {
+                    var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    string fullPath = (new System.Uri(Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath;
+                    //get the folder that's in
+                    string theDirectory = Path.GetDirectoryName(fullPath);
+                    theDirectory = theDirectory.Substring(0, theDirectory.LastIndexOf('\\'));
+                    File.WriteAllBytes(theDirectory + "/Content/VendorDetail" + "/" + VendorDetailId + "_" + filename, buffer);
+                    //Do whatever you want with filename and its binary data.
 
-                     // get existing rocrd
-                     var loginCode = loginCodeDAL.GetLoginCodeById(Id);
-                     var filenamenew = Id + "_" + filename;
-                     if (loginCode.Photo.ToLower() != filenamenew.ToLower())
-                     {
-                         File.Delete(theDirectory + "/Content/LoginCode" + "/" + loginCode.Photo);
-                         loginCode.Photo = Id + "_" + filename;
-                         var result = loginCodeDAL.UpdateLoginCode(loginCode);
+                    // get existing rocrd
+                    var vendordetail = vendordetailDAL.GetVendorDetailById(VendorDetailId);
+                    var filenamenew = VendorDetailId + "_" + filename;
+                    if (vendordetail.Photo.ToLower() != filenamenew.ToLower())
+                    {
+                        File.Delete(theDirectory + "/Content/VendorDetail" + "/" + vendordetail.Photo);
+                        vendordetail.Photo = VendorDetailId + "_" + filename;
+                        var result = vendordetailDAL.UpdateVendorDetail(vendordetail);
 
-                     }
-                 }
-             }
-             catch (Exception ex)
-             {
-                 Log.writeMessage(ex.Message);
-             }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.writeMessage(ex.Message);
+            }
 
-             return Ok();*/
+            return Ok();
+        }
     }
 }
