@@ -19,7 +19,7 @@ namespace PrismAPI.DAL
 
         public List<Registration> GetAllRegistration()
 
-            {
+             {
             List<Registration> RegistrationList = new List<Registration>();
             SqlConnection con = conn.OpenDbConnection();
             SqlCommand cmd = new SqlCommand("GetAllRegistration", con);
@@ -29,7 +29,7 @@ namespace PrismAPI.DAL
             while (dr.Read())
             {
                 Registration registration = new Registration();
-                LoginCo loginCode = new LoginCo();
+                //LoginCo loginCode = new LoginCo();
 
 
                 registration.RegistrationId = Convert.ToInt32(dr["RegistrationId"]);
@@ -64,6 +64,10 @@ namespace PrismAPI.DAL
             cmd.Parameters.Add("Password", SqlDbType.NVarChar).Value = registration.Password;
             cmd.Parameters.Add("EmailStatus", SqlDbType.NVarChar).Value = registration.EmailStatus;
             cmd.Parameters.Add("OTPNo", SqlDbType.NVarChar).Value = registration.OTPNo;
+
+
+            
+
             cmd.Parameters.Add("Status", SqlDbType.NVarChar).Value = registration.Status;
 
 
@@ -104,6 +108,11 @@ namespace PrismAPI.DAL
             cmd.Parameters.Add("Password", SqlDbType.NVarChar).Value = registration.Password;
             cmd.Parameters.Add("EmailStatus", SqlDbType.NVarChar).Value = registration.EmailStatus;
             cmd.Parameters.Add("OTPNo", SqlDbType.NVarChar).Value = registration.OTPNo;
+
+
+            //cmd.Parameters.Add("Photo", SqlDbType.NVarChar).Value = registration.Photo;
+            //cmd.Parameters.Add("Sign", SqlDbType.NVarChar).Value = registration.Sign;
+
             cmd.Parameters.Add("Status", SqlDbType.NVarChar).Value = registration.Status;
 
 
@@ -146,6 +155,10 @@ namespace PrismAPI.DAL
                 registration.Password = Convert.ToString(dr["Password"]);
                 registration.EmailStatus = Convert.ToString(dr["EmailStatus"]);
                 registration.OTPNo = Convert.ToString(dr["OTPNo"]);
+
+                //registration.Photo = Convert.ToString(dr["Photo"]);
+                //registration.Sign = Convert.ToString(dr["Sign"]);
+
                 registration.Status = Convert.ToString(dr["Status"]);
 
 
@@ -159,7 +172,40 @@ namespace PrismAPI.DAL
             con.Close();
             return registration;
         }
+        public Registration GetRegistrationByEmail(string Email)
+        {
+            Registration registration = new Registration();
 
+            SqlConnection con = conn.OpenDbConnection();
+            SqlCommand cmd = new SqlCommand("GetRegistrationByEmail", con);
+            cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = Email;
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                registration.RegistrationId = Convert.ToInt32(dr["RegistrationId"]);
+
+                registration.FName = Convert.ToString(dr["FName"]);
+                registration.LName = Convert.ToString(dr["LName"]);
+                registration.Email = Convert.ToString(dr["Email"]);
+                registration.Password = Convert.ToString(dr["Password"]);
+                registration.EmailStatus = Convert.ToString(dr["EmailStatus"]);
+                registration.OTPNo = Convert.ToString(dr["OTPNo"]);
+
+                //registration.Photo = Convert.ToString(dr["Photo"]);
+                //registration.Sign = Convert.ToString(dr["Sign"]);
+
+                registration.Status = Convert.ToString(dr["Status"]);
+
+
+                registration.CreatedBy = Convert.ToString(dr["CreatedBy"]);
+                registration.CreatedDate = Convert.ToString(dr["CreatedDate"]);
+                registration.UpdatedBy = Convert.ToString(dr["UpdatedBy"]);
+                registration.UpdatedDate = Convert.ToString(dr["UpdatedDate"]);
+            }
+            con.Close();
+            return registration;
+        }
         public string DeleteRegistration(int RegistrationId)
         {
             SqlConnection con = conn.OpenDbConnection();

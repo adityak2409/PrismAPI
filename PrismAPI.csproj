@@ -360,6 +360,7 @@
     <Compile Include="Controllers\ApplicationTrackerController.cs" />
     <Compile Include="Controllers\BranchCodeController.cs" />
     <Compile Include="Controllers\CollegeCodeController.cs" />
+    <Compile Include="Controllers\CompanySessionController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\EndUserPlanController.cs" />
     <Compile Include="Controllers\IndustryController.cs" />
@@ -374,6 +375,7 @@
     <Compile Include="Controllers\LoginCodeController.cs" />
     <Compile Include="Controllers\MenteePlanController.cs" />
     <Compile Include="Controllers\MenteeProfileController.cs" />
+    <Compile Include="Controllers\MenteeSessionController.cs" />
     <Compile Include="Controllers\MenteeSkillController.cs" />
     <Compile Include="Controllers\MentorPlanController.cs" />
     <Compile Include="Controllers\MentorSkillController.cs" />
@@ -382,10 +384,13 @@
     <Compile Include="Controllers\SKillsController.cs" />
     <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Controllers\StudentCodeController.cs" />
+    <Compile Include="Controllers\UserDetailController.cs" />
+    <Compile Include="Controllers\UserSkillController.cs" />
     <Compile Include="DAL\ApplicantDAL.cs" />
     <Compile Include="DAL\ApplicationTrackerDAL.cs" />
     <Compile Include="DAL\BranchCodeDAL.cs" />
     <Compile Include="DAL\CollegeCodeDAL.cs" />
+    <Compile Include="DAL\CompanySessionDAL.cs" />
     <Compile Include="DAL\Connection.cs" />
     <Compile Include="DAL\CourseDAL.cs" />
     <Compile Include="DAL\CVDAL.cs" />
@@ -400,6 +405,7 @@
     <Compile Include="DAL\LoginCodeDAL.cs" />
     <Compile Include="DAL\MenteePlanDAL.cs" />
     <Compile Include="DAL\MenteeProfileDAL.cs" />
+    <Compile Include="DAL\MenteeSessionDAL.cs" />
     <Compile Include="DAL\MenteeSkillDAL.cs" />
     <Compile Include="DAL\MentorPlanDAL.cs" />
     <Compile Include="DAL\MentorSkillDAL.cs" />
@@ -408,6 +414,8 @@
     <Compile Include="DAL\SKillsDAL.cs" />
     <Compile Include="DAL\SocialMediaDAL.cs" />
     <Compile Include="DAL\StudentCodeDAL.cs" />
+    <Compile Include="DAL\UserDetailDAL.cs" />
+    <Compile Include="DAL\UserSkillDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -419,6 +427,7 @@
     <Compile Include="Models\ApplicationTracker.cs" />
     <Compile Include="Models\BranchCode.cs" />
     <Compile Include="Models\CollegeCode.cs" />
+    <Compile Include="Models\CompanySession.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CV.cs" />
     <Compile Include="Models\EmployeeCode.cs" />
@@ -432,6 +441,7 @@
     <Compile Include="Models\LoginCode.cs" />
     <Compile Include="Models\MenteePlan.cs" />
     <Compile Include="Models\MenteeProfile.cs" />
+    <Compile Include="Models\MenteeSession.cs" />
     <Compile Include="Models\MenteeSkill.cs" />
     <Compile Include="Models\MentorPlan.cs" />
     <Compile Include="Models\MentorSkill.cs" />
@@ -440,6 +450,8 @@
     <Compile Include="Models\SKills.cs" />
     <Compile Include="Models\SocialMedia.cs" />
     <Compile Include="Models\StudentCode.cs" />
+    <Compile Include="Models\UserDetail.cs" />
+    <Compile Include="Models\UserSkill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -498,10 +510,13 @@
     <Folder Include="Content\CV\" />
     <Folder Include="Content\EmployeeCode\" />
     <Folder Include="Content\EndUserPlan\" />
+    <Folder Include="Content\Registration1\" />
+    <Folder Include="Content\Registration\" />
     <Folder Include="Views\Applicant\" />
     <Folder Include="Views\ApplicationTracker\" />
     <Folder Include="Views\BranchCode\" />
     <Folder Include="Views\CollegeCode\" />
+    <Folder Include="Views\CompanySession\" />
     <Folder Include="Views\Course\" />
     <Folder Include="Views\CV\" />
     <Folder Include="Views\EmployeeCode\" />
@@ -515,6 +530,7 @@
     <Folder Include="Views\LoginCode\" />
     <Folder Include="Views\MenteePlan\" />
     <Folder Include="Views\MenteeProfile\" />
+    <Folder Include="Views\MenteeSession\" />
     <Folder Include="Views\MenteeSkill\" />
     <Folder Include="Views\MentorPlan\" />
     <Folder Include="Views\MentorSkill\" />
@@ -524,6 +540,8 @@
     <Folder Include="Views\SKills\" />
     <Folder Include="Views\SocialMedia\" />
     <Folder Include="Views\StudentCode\" />
+    <Folder Include="Views\UserDetail\" />
+    <Folder Include="Views\UserSkill\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
